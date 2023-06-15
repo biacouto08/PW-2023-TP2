@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Página de Login</title>
+  <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <div>
+      <input type="text" placeholder="Nome de usuário" id="username" required>
+      <input type="password" placeholder="Senha" id="password" required>
+      <button onclick="login()">Entrar</button>
+    </div>
+  </div>
+</body>
+
+<script>
+
+
+  async function login(e) {
+    const name = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    // Replace with your login endpoint URL
+    const url = 'http://localhost:3333/login';
+
+    const requestBody = { name, password };
+
+    const data = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    })
+
+    const response = await data.json();
+
+    localStorage.setItem('token', response.token);
+    window.location.href = '/admin.html';
+  }
+
+</script>
+</body>
+
+</html>
